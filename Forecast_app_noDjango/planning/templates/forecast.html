@@ -1,0 +1,54 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+    Forecast · Forecast Planning
+{% endblock %}
+
+
+{% block extra_css %}
+
+    <link
+        rel="stylesheet"
+        href="{% static 'planning/css/forecast/workspace.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'planning/css/forecast/monthly-card.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'planning/css/forecast/monthly-table.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'planning/css/forecast/inputs.css' %}"
+    >
+
+    <link
+        rel="stylesheet"
+        href="{% static 'planning/css/forecast/responsive.css' %}"
+    >
+
+{% endblock %}
+
+
+{% block content %}
+
+    {% include "partials/main_filters.html" %}
+
+    {% include "forecast/workspace.html" %}
+
+{% endblock %}
+
+
+{% block scripts %}
+
+    <script
+        src="{% static 'planning/js/forecast-page.js' %}"
+    ></script>
+
+{% endblock %}

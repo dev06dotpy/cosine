@@ -1,0 +1,1210 @@
+:root {
+  --background: #f7f9fc;
+  --surface: #ffffff;
+  --surface-muted: #f9fbfd;
+  --border: #dce3ec;
+  --border-light: #e9eef4;
+
+  --text-primary: #16233b;
+  --text-secondary: #51617a;
+  --text-muted: #74839a;
+
+  --blue: #0867e8;
+  --blue-dark: #0758c9;
+  --blue-light: #edf5ff;
+  --blue-row: #eaf4ff;
+
+  --green: #26ac4b;
+  --orange: #ff8208;
+
+  --shadow:
+    0 1px 2px rgba(18, 38, 63, 0.04),
+    0 2px 8px rgba(18, 38, 63, 0.04);
+
+  --radius: 8px;
+  --radius-large: 10px;
+}
+
+/* || Debug note: global design tokens are centralized here.
+   Override these variables in browser dev tools to quickly
+   test theme and spacing changes without editing the file. */
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  min-width: 320px;
+  background: var(--background);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background:
+    linear-gradient(
+      180deg,
+      #ffffff 0,
+      var(--background) 170px
+    );
+  color: var(--text-primary);
+  font-family:
+    Inter,
+    ui-sans-serif,
+    -apple-system,
+    BlinkMacSystemFont,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  font-size: 14px;
+}
+
+button,
+input,
+select {
+  font: inherit;
+}
+
+button,
+select {
+  cursor: pointer;
+}
+
+button {
+  color: inherit;
+}
+
+a {
+  color: var(--blue);
+  font-weight: 600;
+  text-decoration: none;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+input,
+select {
+  color: var(--text-primary);
+}
+
+/* ------------------ Main shell ------------------
+  ||Layout container for the application viewport
+  - `app-shell` defines overall page padding and
+    width constraints used throughout the UI
+  - Keep global spacing and max-width adjustments
+    here so individual components remain flexible
+*/
+
+/* ||Component: App shell (.app-shell)
+   Debug tip: if the page width or spacing looks wrong, inspect
+   this container first because it controls the global viewport padding
+   and max-width constraints. */
+.app-shell {
+  width: 100%;
+  min-width: 0;
+  padding: 0 30px 30px;
+}
+
+/* ------------------ Header ------------------
+  ||Top header and title area for the app
+  - `top-header` handles alignment, spacing and
+    the bottom divider separating header from page
+  - Page title and header actions live here
+*/
+
+/* Component: Page title (.page-title) */
+.top-header {
+  min-height: 72px;
+  border-bottom: 1px solid var(--border-light);
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 18px;
+}
+
+.page-title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.page-title h1 {
+  margin: 0;
+  color: #101828;
+  font-size: 25px;
+  font-weight: 700;
+  letter-spacing: -0.025em;
+}
+
+.header-tabs {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.header-tab {
+  min-height: 34px;
+  border: 1px solid transparent;
+  border-radius: 7px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0 12px;
+  background: transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 600;
+  white-space: nowrap;
+  text-decoration: none;
+}
+
+.header-tab:hover {
+  border-color: var(--border);
+  background: var(--surface-muted);
+  color: var(--blue);
+  text-decoration: none;
+}
+
+.header-tab.active {
+  border-color: #c9dcf7;
+  background: var(--blue-light);
+  color: var(--blue);
+}
+
+.header-actions {
+  justify-self: end;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* ------------------ Buttons ------------------
+.  ||Reusable button styles and variants
+.  - `.button` is the base reset for all button types.
+.  - Modifier classes (primary, secondary, small)
+.    implement visual and sizing variants.
+.  - `.icon-button` and `.text-button` are compact
+.    alternatives for icon-only or inline actions.
+.*/
+
+/* Component: Button base (button) */
+.button {
+  min-height: 40px;
+  border: 1px solid transparent;
+  border-radius: var(--radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 9px;
+  padding: 0 16px;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.button:active {
+  transform: translateY(1px);
+}
+
+.button-primary {
+  border-color: var(--blue);
+  background: var(--blue);
+  color: #ffffff;
+  box-shadow: 0 4px 10px rgba(8, 103, 232, 0.18);
+}
+
+.button-primary:hover {
+  border-color: var(--blue-dark);
+  background: var(--blue-dark);
+}
+
+.button-secondary {
+  border-color: var(--border);
+  background: var(--surface);
+  color: #26354d;
+}
+
+.button-secondary:hover {
+  border-color: #c3cedb;
+  background: #f9fbfd;
+}
+
+.button-small {
+  min-height: 32px;
+  padding: 0 12px;
+  font-size: 12px;
+}
+
+/* Component: Icon button (.icon-button) */
+.icon-button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 7px;
+  background: transparent;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.icon-button:hover {
+  background: #f1f5f9;
+}
+
+/* ------------------ Filter Panel ------------------
+. || Controls and filters used for list/table views.
+.  - Grid layout adapts to screen size using media
+.    queries below; fields use shared input styles.
+.  - Helper wrappers like `.input-with-icon` provide
+.    consistent spacing for inline icons.
+*/
+
+.filter-panel {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns:
+    minmax(190px, 1fr)
+    minmax(190px, 1fr)
+    minmax(150px, 0.72fr)
+    minmax(270px, 1.2fr)
+    minmax(165px, 0.72fr)
+    auto;
+  gap: 15px;
+  align-items: end;
+}
+
+.field-group {
+  min-width: 0;
+}
+
+.field-group label {
+  display: block;
+  margin-bottom: 8px;
+  color: #33445c;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.input-with-icon,
+.select-wrapper {
+  position: relative;
+  height: 42px;
+}
+
+.input-with-icon input,
+.select-wrapper select {
+  width: 100%;
+  height: 100%;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  outline: 0;
+  background: var(--surface);
+  transition:
+    border-color 160ms ease,
+    box-shadow 160ms ease;
+}
+
+.input-with-icon input {
+  padding: 0 37px;
+}
+
+.input-with-icon input::placeholder {
+  color: #75849a;
+}
+
+.input-with-icon input:focus,
+.select-wrapper select:focus {
+  border-color: var(--blue);
+  box-shadow: 0 0 0 3px rgba(8, 103, 232, 0.1);
+}
+
+.select-wrapper select {
+  appearance: none;
+  padding: 0 38px 0 13px;
+}
+
+.select-wrapper::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  width: 7px;
+  height: 7px;
+  border-right: 1.5px solid #4d5f78;
+  border-bottom: 1.5px solid #4d5f78;
+  pointer-events: none;
+  transform: translateY(-70%) rotate(45deg);
+}
+
+.select-with-calendar select {
+  padding-left: 39px;
+}
+
+.filter-buttons {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.filter-buttons .button {
+  min-width: 90px;
+}
+
+/* ------------------ Icons (CSS-only) ------------------
+  || Small, semantic icon shapes created with borders
+  and pseudo-elements so they scale with text color
+  - Prefer `currentColor` where possible to inherit
+    the surrounding color context
+  - These lightweight icons avoid external assets
+    and are easy to recolor for different variants
+*/
+
+.search-icon {
+  position: relative;
+  width: 14px;
+  height: 14px;
+  flex: 0 0 14px;
+}
+
+.search-icon::before {
+  content: "";
+  position: absolute;
+  width: 8px;
+  height: 8px;
+  border: 1.7px solid #61718a;
+  border-radius: 50%;
+}
+
+.search-icon::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  bottom: 1px;
+  width: 6px;
+  height: 1.7px;
+  border-radius: 2px;
+  background: #61718a;
+  transform: rotate(45deg);
+  transform-origin: right center;
+}
+
+.input-with-icon > .search-icon:first-child {
+  position: absolute;
+  top: 14px;
+  left: 14px;
+  z-index: 1;
+}
+
+.input-with-icon .trailing-icon {
+  position: absolute;
+  top: 14px;
+  right: 13px;
+}
+
+.chevron {
+  width: 6px;
+  height: 6px;
+  border-right: 1.4px solid currentColor;
+  border-bottom: 1.4px solid currentColor;
+  transform: translateY(-2px) rotate(45deg);
+}
+
+.up-chevron {
+  width: 7px;
+  height: 7px;
+  border-top: 1.5px solid currentColor;
+  border-left: 1.5px solid currentColor;
+  transform: translateY(2px) rotate(45deg);
+}
+
+.calendar-icon {
+  position: absolute;
+  top: 13px;
+  left: 14px;
+  z-index: 1;
+  width: 14px;
+  height: 14px;
+  border: 1.5px solid #60718a;
+  border-radius: 2px;
+}
+
+.calendar-icon::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 0;
+  width: 100%;
+  border-top: 1.5px solid #60718a;
+}
+
+/* Export and save icons */
+
+.export-icon,
+.save-icon {
+  position: relative;
+  display: inline-block;
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+}
+
+/* Export icon */
+
+.export-icon::before {
+  content: "";
+  position: absolute;
+  left: 2px;
+  bottom: 0;
+  width: 11px;
+  height: 7px;
+  border: 1.5px solid currentColor;
+  border-top: 0;
+  border-radius: 1px;
+}
+
+.export-icon::after {
+  content: "↓";
+  position: absolute;
+  top: -3px;
+  left: 2px;
+  color: currentColor;
+  font-size: 15px;
+  font-weight: 600;
+  line-height: 1;
+}
+
+/* Save icon */
+
+.save-icon {
+  border: 1.5px solid currentColor;
+  border-radius: 2px;
+}
+
+.save-icon::before {
+  content: "";
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 7px;
+  height: 4px;
+  border: 1.2px solid currentColor;
+}
+
+.save-icon::after {
+  content: "";
+  position: absolute;
+  bottom: 2px;
+  left: 4px;
+  width: 5px;
+  height: 4px;
+  border: 1.2px solid currentColor;
+}
+/* ------------------ KPI Cards ------------------
+.  || Compact summary cards used for high-level metrics.
+.  - `.kpi-grid` controls layout; `.kpi-card` is the
+.    card shell with icon + content alignment.
+.  - Icon modifiers (e.g. `-blue`, `-green`) set
+.    background colors to match the metric context.
+.*/
+
+.kpi-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 12px;
+  max-width: calc(100% - 330px);
+}
+
+.kpi-card {
+  min-height: 84px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+  display: flex;
+  align-items: center;
+  gap: 18px;
+  padding: 15px 20px;
+}
+
+.kpi-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex: 0 0 48px;
+  color: #ffffff;
+}
+
+.kpi-icon-blue {
+  background: var(--blue);
+}
+
+.kpi-icon-green {
+  background: var(--green);
+}
+
+.kpi-icon-orange {
+  background: var(--orange);
+}
+
+.kpi-content {
+  min-width: 0;
+}
+
+.kpi-label {
+  margin: 0 0 3px;
+  color: #36475e;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.kpi-value {
+  display: block;
+  color: #152238;
+  font-size: 21px;
+  line-height: 1.15;
+}
+
+.kpi-subvalue {
+  display: block;
+  margin-top: 5px;
+  color: #53657e;
+  font-size: 12px;
+}
+
+.dollar-icon {
+  font-size: 26px;
+  font-weight: 400;
+}
+
+.chart-icon {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  border-left: 2px solid currentColor;
+  border-bottom: 2px solid currentColor;
+}
+
+.chart-icon::before {
+  content: "";
+  position: absolute;
+  top: 10px;
+  left: 3px;
+  width: 17px;
+  height: 2px;
+  background: currentColor;
+  transform: rotate(-35deg);
+}
+
+.chart-icon::after {
+  content: "";
+  position: absolute;
+  top: 4px;
+  right: -1px;
+  width: 6px;
+  height: 6px;
+  border-top: 2px solid currentColor;
+  border-right: 2px solid currentColor;
+}
+
+.box-icon {
+  width: 20px;
+  height: 17px;
+  border: 1.8px solid currentColor;
+  border-radius: 3px;
+}
+
+.box-icon::before {
+  content: "";
+  display: block;
+  width: 16px;
+  margin: 4px auto 0;
+  border-top: 1.8px solid currentColor;
+}
+
+/* ------------------ Panels ------------------
+.  || Generic panel surface used for grouping content.
+.  - `.panel` encapsulates border, radius, background
+.    and shadow to produce a consistent card style.
+.*/
+
+.panel {
+  border: 1px solid var(--border);
+  border-radius: var(--radius-large);
+  background: var(--surface);
+  box-shadow: var(--shadow);
+}
+
+.dashboard-main-grid {
+  margin-top: 12px;
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 310px;
+  gap: 12px;
+}
+
+.data-panel {
+  min-width: 0;
+  overflow: hidden;
+}
+
+.table-toolbar {
+  height: 45px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+}
+
+.table-toolbar p {
+  margin: 0;
+  color: #4f6078;
+  font-size: 12px;
+}
+
+/* ------------------ Data Table ------------------
+.  || Table styles optimized for dense, read-heavy data.
+.  - `.data-table` uses `min-width` to allow horizontal
+.    scrolling inside `.table-scroll` when needed.
+.  - Selected row and hover states are highlighted
+.    with subtle backgrounds and color changes.
+.*/
+
+.table-scroll {
+  width: 100%;
+  overflow-x: auto;
+}
+
+.data-table {
+  width: 100%;
+  min-width: 1050px;
+  border-collapse: collapse;
+  table-layout: auto;
+  font-size: 12px;
+}
+
+.data-table th,
+.data-table td {
+  height: 36px;
+  border-bottom: 1px solid var(--border-light);
+  padding: 7px 13px;
+  text-align: left;
+  white-space: nowrap;
+}
+
+.data-table th {
+  background: #fbfcfe;
+  color: #26364e;
+  font-size: 11px;
+  font-weight: 700;
+}
+
+.data-table tbody td {
+  color: #33445b;
+}
+
+.data-table tbody tr:hover {
+  background: #f8fbff;
+}
+
+.data-table .selected-row {
+  background: var(--blue-row);
+}
+
+.data-table .selected-row:hover {
+  background: var(--blue-row);
+}
+
+.data-table .selected-row td,
+.data-table .selected-row a {
+  color: #0065e8;
+  font-weight: 600;
+}
+
+.checkbox-column {
+  width: 42px;
+}
+
+.data-table input[type="checkbox"] {
+  width: 15px;
+  height: 15px;
+  margin: 0;
+  accent-color: var(--blue);
+}
+
+.table-footer {
+  min-height: 43px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 18px;
+  padding: 5px 14px;
+}
+
+.rows-per-page {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  color: #485a72;
+  font-size: 11px;
+}
+
+.rows-per-page select {
+  width: 66px;
+  height: 30px;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  background: var(--surface);
+  padding: 0 8px;
+}
+
+.pagination {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+}
+
+.pagination button {
+  min-width: 31px;
+  height: 30px;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #24344b;
+  font-size: 12px;
+}
+
+.pagination button:hover {
+  background: #f0f4f8;
+}
+
+.pagination .active-page {
+  background: var(--blue-light);
+  color: var(--blue);
+  font-weight: 700;
+}
+
+/* ------------------ Details Panel ------------------
+.  || Right-hand side detail view with labeled fields.
+.  - `.details-list` uses a two-column grid for labels
+.    and values, switching to responsive layouts below.
+.*/
+
+.details-panel {
+  min-width: 0;
+}
+
+.panel-heading {
+  min-height: 49px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 18px;
+}
+
+.panel-heading h2,
+.forecast-heading h2 {
+  margin: 0;
+  color: #1d2b42;
+  font-size: 14px;
+  font-weight: 700;
+}
+
+.details-list {
+  margin: 0;
+  padding: 14px 20px 22px;
+}
+
+.details-list > div {
+  display: grid;
+  grid-template-columns: 115px minmax(0, 1fr);
+  gap: 12px;
+  padding: 11px 0;
+}
+
+.details-list dt {
+  color: #55657d;
+  font-size: 12px;
+}
+
+.details-list dd {
+  margin: 0;
+  color: #283850;
+  font-size: 12px;
+  font-weight: 500;
+  overflow-wrap: anywhere;
+}
+
+/* ------------------ Forecast Panel ------------------
+.  || Multi-column forecasting UI with tabs and inputs.
+.  - Uses tables for aligned numeric entry and small
+.    inline icons to indicate row types.
+.*/
+
+.forecast-panel {
+  margin-top: 12px;
+  overflow: hidden;
+}
+
+.forecast-heading {
+  min-height: 49px;
+  border-bottom: 1px solid var(--border-light);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 16px;
+}
+
+.forecast-title-group,
+.forecast-heading-actions {
+  display: flex;
+  align-items: center;
+  gap: 13px;
+}
+
+.forecast-title-group {
+  min-width: 0;
+}
+
+.forecast-title-group a {
+  font-size: 12px;
+  white-space: nowrap;
+}
+
+.breadcrumb-separator {
+  color: #96a3b5;
+}
+
+.forecast-layout {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  min-height: 155px;
+}
+
+.forecast-tabs {
+  border-right: 1px solid var(--border-light);
+  background: #fbfcfe;
+  padding: 5px 0;
+}
+
+.forecast-tab {
+  position: relative;
+  width: 100%;
+  height: 39px;
+  border: 0;
+  background: transparent;
+  display: flex;
+  align-items: center;
+  gap: 13px;
+  padding: 0 18px;
+  color: #53647b;
+  text-align: left;
+  font-size: 12px;
+}
+
+.forecast-tab:hover {
+  background: #f3f7fb;
+}
+
+.forecast-tab.active-tab {
+  background: #f3f8ff;
+  color: var(--blue);
+  font-weight: 600;
+}
+
+.forecast-tab.active-tab::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  width: 3px;
+  background: var(--blue);
+}
+
+.small-chart-icon,
+.history-icon,
+.comment-icon,
+.attachment-icon {
+  position: relative;
+  width: 15px;
+  height: 15px;
+  flex: 0 0 15px;
+}
+
+.small-chart-icon {
+  border-left: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+}
+
+.small-chart-icon::before {
+  content: "";
+  position: absolute;
+  left: 3px;
+  bottom: 4px;
+  width: 10px;
+  height: 1.5px;
+  background: currentColor;
+  transform: rotate(-32deg);
+}
+
+.history-icon {
+  border: 1.5px solid currentColor;
+  border-radius: 50%;
+}
+
+.history-icon::before {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 6px;
+  width: 1.5px;
+  height: 5px;
+  background: currentColor;
+}
+
+.history-icon::after {
+  content: "";
+  position: absolute;
+  top: 7px;
+  left: 6px;
+  width: 4px;
+  height: 1.5px;
+  background: currentColor;
+}
+
+.comment-icon {
+  border: 1.5px solid currentColor;
+  border-radius: 3px;
+}
+
+.comment-icon::after {
+  content: "";
+  position: absolute;
+  bottom: -4px;
+  left: 3px;
+  border-top: 4px solid currentColor;
+  border-right: 4px solid transparent;
+}
+
+.attachment-icon {
+  border: 1.5px solid currentColor;
+  border-radius: 8px 8px 5px 5px;
+  transform: rotate(42deg);
+}
+
+.forecast-table-wrapper {
+  min-width: 0;
+  overflow-x: auto;
+}
+
+.forecast-table {
+  width: 100%;
+  min-width: 1160px;
+  border-collapse: collapse;
+  table-layout: fixed;
+}
+
+.forecast-table th,
+.forecast-table td {
+  border-right: 1px solid var(--border-light);
+  border-bottom: 1px solid var(--border-light);
+  text-align: center;
+}
+
+.forecast-table thead th {
+  height: 35px;
+  background: #fbfcfe;
+  color: #25364e;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.forecast-table thead th:first-child {
+  width: 125px;
+}
+
+.forecast-table tbody th {
+  padding: 0 12px;
+  color: #53647b;
+  text-align: left;
+  font-size: 11px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.forecast-table tbody td {
+  height: 39px;
+  padding: 4px 6px;
+}
+
+.forecast-table input {
+  width: 100%;
+  min-width: 67px;
+  height: 28px;
+  border: 1px solid #d9e1ea;
+  border-radius: 5px;
+  outline: 0;
+  background: #fbfcfe;
+  color: #34445c;
+  padding: 0 7px;
+  text-align: center;
+  font-size: 11px;
+}
+
+.forecast-table input:focus {
+  border-color: var(--blue);
+  background: #ffffff;
+  box-shadow: 0 0 0 2px rgba(8, 103, 232, 0.09);
+}
+
+.row-label-icon {
+  display: inline-flex;
+  width: 15px;
+  height: 15px;
+  margin-right: 7px;
+  align-items: center;
+  justify-content: center;
+  vertical-align: -3px;
+  color: #5d6e86;
+}
+
+.chart-line-icon {
+  border-left: 1.3px solid currentColor;
+  border-bottom: 1.3px solid currentColor;
+}
+
+.chart-line-icon::before {
+  content: "";
+  width: 10px;
+  height: 1.3px;
+  background: currentColor;
+  transform: rotate(-30deg);
+}
+
+.currency-row-icon {
+  font-size: 14px;
+}
+
+.tag-icon {
+  border: 1.3px solid currentColor;
+  border-radius: 3px 5px 5px 3px;
+  transform: rotate(45deg);
+}
+
+.forecast-footer {
+  min-height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 20px;
+  padding: 0 18px;
+}
+
+.saved-status {
+  margin: 0;
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  color: #52647b;
+  font-size: 11px;
+}
+
+.status-check {
+  width: 16px;
+  height: 16px;
+  border: 1.5px solid #26ae4d;
+  border-radius: 50%;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  color: #26ae4d;
+  font-size: 10px;
+  font-weight: 700;
+}
+
+.forecast-meta {
+  display: flex;
+  align-items: center;
+  gap: 34px;
+  color: #53657d;
+  font-size: 11px;
+}
+
+/* ------------------ Accessibility ------------------
+.  || Focus-visible outlines and keyboard affordances.
+.  - Keep the `:focus-visible` rule to ensure keyboard
+.    users can see which element has focus.
+.  - Maintain high-contrast states and avoid removing
+.    outlines for interactive elements.
+.*/
+
+button:focus-visible,
+input:focus-visible,
+select:focus-visible,
+a:focus-visible {
+  outline: 3px solid rgba(8, 103, 232, 0.2);
+  outline-offset: 2px;
+}
+
+/* ------------------ API connection states ------------------
+   || Debug note: use .app-status, .is-error, and .is-success to verify
+   whether the UI is reflecting backend connectivity or response state.
+   These classes are helpful when tracing why a failed API call still
+   renders a neutral UI state. */
+.app-status {
+  margin: 10px 0 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  padding: 9px 12px;
+  color: var(--text-secondary);
+  font-size: 12px;
+}
+
+.app-status.is-error {
+  border-color: #a56666;
+  background: #fff6f6;
+  color: #a12626;
+}
+
+.app-status.is-success {
+  border-color: #b9e2c3;
+  background: #f3fbf5;
+  color: #20763a;
+}
+
+.data-table tbody tr[data-selectable="true"] {
+  cursor: pointer;
+}
+
+.data-table .empty-row td {
+  height: 72px;
+  color: var(--text-muted);
+  text-align: center;
+}
+
+.forecast-table input[readonly] {
+  cursor: default;
+  background: #f1f4f8;
+  color: var(--text-secondary);
+}
+
+.forecast-table input.is-dirty {
+  border-color: var(--orange);
+  background: #fff9f0;
+}
+
+.button:disabled,
+input:disabled,
+select:disabled {
+  cursor: not-allowed;
+  opacity: 0.58;
+}

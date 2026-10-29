@@ -1,0 +1,66 @@
+<!--
+  JavaScript replaces the body with server-classified months. The backend owns
+  status and editability; only editable Forecast months receive input controls.
+-->
+<div class="forecast-monthly-table-wrap">
+
+    <table class="forecast-monthly-table">
+
+        <thead>
+            <tr>
+                <th>Month</th>
+                <th>Status</th>
+                <th class="numeric">Units</th>
+                <th class="numeric">ASP (USD)</th>
+                <th class="numeric">USD Value</th>
+            </tr>
+        </thead>
+
+
+        <tbody id="forecastMonthlyBody">
+
+            <tr>
+                <td
+                    colspan="5"
+                    class="forecast-monthly-state"
+                >
+                    Loading forecast…
+                </td>
+            </tr>
+
+        </tbody>
+
+
+        <tfoot>
+
+            <tr class="forecast-monthly-total">
+
+                <th colspan="2">
+                    Total
+                </th>
+
+                <td
+                    id="forecastTotalUnits"
+                    class="numeric"
+                >
+                    —
+                </td>
+
+                <td class="numeric">
+                    —
+                </td>
+
+                <td
+                    id="forecastTotalUsd"
+                    class="numeric"
+                >
+                    —
+                </td>
+
+            </tr>
+
+        </tfoot>
+
+    </table>
+
+</div>

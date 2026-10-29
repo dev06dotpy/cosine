@@ -1,0 +1,145 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Main Page · Forecast Planning{% endblock %}
+
+{% block content %}
+    {% include "partials/main_filters.html" %}
+
+    <!-- Fiscal-quarter display classification is calculated by the backend. -->
+    <section class="kpi-grid" aria-label="KPIs">
+        <article class="kpi-card kpi-card--plan">
+            <div class="kpi-card__eyebrow">Plan</div>
+            <div class="kpi-card__metrics">
+                <div>
+                    <div id="planUnits" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">Units</div>
+                </div>
+                <div>
+                    <div id="planUsd" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">USD</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="kpi-card kpi-card--billings">
+            <div class="kpi-card__eyebrow">Billings</div>
+            <div class="kpi-card__metrics">
+                <div>
+                    <div id="billingsUnits" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">Units</div>
+                </div>
+                <div>
+                    <div id="billingsUsd" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">USD</div>
+                </div>
+            </div>
+        </article>
+
+        <article class="kpi-card kpi-card--backlog">
+            <div class="kpi-card__eyebrow">Backlog</div>
+            <div class="kpi-card__metrics">
+                <div>
+                    <div id="backlogUnits" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">Units</div>
+                </div>
+                <div>
+                    <div id="backlogUsd" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">USD</div>
+                </div>
+            </div>
+        </article>
+        <article class="kpi-card kpi-card--forecast">
+            <div class="kpi-card__eyebrow">Forecast</div>
+
+            <div class="kpi-card__metrics">
+                <div>
+                    <div id="forecastUnits" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">Units</div>
+                </div>
+                <div>
+                    <div id="forecastUsd" class="kpi-card__value">—</div>
+                    <div class="kpi-card__label">USD</div>
+                </div>
+            </div>
+        </article>
+    </section>
+
+    <!--
+      Grouped planning rows and the Product Information panel. Selecting a row
+      preserves its underlying Backlog record-key lineage for downstream KPIs.
+    -->
+    <section id="workspace" class="workspace">
+        <div class="database-card">
+            <div class="database-card__header">
+                <div>
+                    <h2 class="section-title">Database</h2>
+                    <p id="resultCount" class="section-subtitle">Loading records…</p>
+                </div>
+
+                <div class="database-card__tools">
+                    <label class="table-search">
+                        <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                            <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                            <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                        </svg>
+                        <input id="tableSearch" type="search" placeholder="Search visible rows">
+                    </label>
+                </div>
+            </div>
+
+            <div class="table-wrap">
+                <table class="data-table">
+                    <thead>
+                        <tr>
+                            <th class="col-select">
+                                <input id="selectAllVisible" type="checkbox" aria-label="Select all visible rows">
+                            </th>
+                            <th>Product ID</th>
+                            <th>Customer</th>
+                            <th>End Customer</th>
+                            <th class="metric-wide numeric"> Billings Units </th>
+                            <th class="metric-wide numeric">Billings USD</th>
+                            <th class="metric-combined">Billings</th>
+                            <th class="metric-wide numeric">Backlog Units</th>
+                            <th class="metric-wide numeric">Backlog USD</th>
+                            <th class="metric-combined">Backlog</th>
+                            <th class="metric-wide numeric">Forecast Units</th>
+                            <th class="metric-wide numeric">Forecast USD</th>
+                            <th class="metric-combined">Forecast</th>
+                            <th>Last Updated</th>
+                            <th>Country</th>
+                        </tr>
+                    </thead>
+                    <tbody id="mainTableBody">
+                        <tr>
+                            <td colspan="15" class="table-state">Loading…</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="database-card__footer">
+                <div id="selectionStatus" class="selection-status">No rows selected</div>
+
+                <div class="pagination" aria-label="Pagination">
+                    <button id="previousPage" class="pagination__button" type="button" aria-label="Previous page">‹</button>
+                    <span id="pageIndicator" class="pagination__indicator">1 / 1</span>
+                    <button id="nextPage" class="pagination__button" type="button" aria-label="Next page">›</button>
+                </div>
+            </div>
+        </div>
+
+        <aside id="detailPanel" class="detail-panel" aria-live="polite" aria-hidden="true">
+            <div class="detail-panel__empty">
+                Select a row to view details.
+            </div>
+        </aside>
+    </section>
+{% endblock %}
+
+{% block scripts %}
+
+<script src="{% static 'planning/js/main-page.js' %}"></script>
+
+{% endblock %}
