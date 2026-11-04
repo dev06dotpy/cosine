@@ -79,19 +79,19 @@ def _empty_main_row(
     }
 
 
-def _update_last_updated(main_row, date_entered):
+def _update_last_updated(main_row, invoice_date):
     """
-    Keep the latest date_entered found across Backlog/Billings.
+    Keep the latest invoice_date found across Backlog/Billings.
     """
 
-    if not date_entered:
+    if not invoice_date:
         return
 
     if (
         main_row["last_updated"] is None
-        or date_entered > main_row["last_updated"]
+        or invoice_date > main_row["last_updated"]
     ):
-        main_row["last_updated"] = date_entered
+        main_row["last_updated"] = invoice_date
 
 
 def get_main_page_rows(
@@ -119,8 +119,8 @@ def get_main_page_rows(
         USD Value = total_usd_value
 
     Backlog / Forecast:
-        Units     = buy_qty_due
-        USD Value = sale_unit_price * buy_qty_due
+        Units     = invoiced_unit
+        USD Value = sale_unit_price * invoiced_unit
     """
 
     as_of_date = as_of_date or date.today()
@@ -147,12 +147,12 @@ def get_main_page_rows(
     base_rows = backlog.values(
         "record_key",
         "order_no",
-        "catalog_no",
-        "customer_no",
+        "product_id",
+        "customer_id",
         "customer_name",
-        "cf_end_customer",
-        "invoice_country",
-        "date_entered",
+        "end_customer_id",
+        "country",
+        "invoice_date",
     )
 
     order_numbers = (
@@ -224,13 +224,10 @@ def get_main_page_rows(
             ]["opportunity_types"].add(opportunity_type)
 
     for base_row in base_rows:
-        end_customer_id, end_customer_name = _parse_end_customer(
-            base_row["cf_end_customer"]
-        )
         group = (
-            base_row["catalog_no"] or "",
-            base_row["customer_no"] or "",
-            end_customer_id,
+            base_row["product_id"] or "",
+            base_row["customer_id"] or "",
+            base_row["end_customer_id"] or "",
         )
 
         if group not in rows:
@@ -238,16 +235,16 @@ def get_main_page_rows(
                 group[0],
                 group[1],
                 base_row["customer_name"] or "",
-                end_customer_id,
-                end_customer_name,
+                base_row["end_customer_id"] or "",
+                base_row["end_customer_name"] or "",
             )
 
         main_row = rows[group]
         lineage_groups[base_row["record_key"]] = group
         main_row["record_keys"].add(base_row["record_key"])
 
-        if base_row["invoice_country"]:
-            main_row["countries"].add(base_row["invoice_country"].strip())
+        if base_row["country"]:
+            main_row["countries"].add(base_row["country"].strip())
 
         order_no = str(base_row["order_no"] or "").strip()
         if order_no:
@@ -260,7 +257,7 @@ def get_main_page_rows(
                 business_values.get("opportunity_types", set())
             )
 
-        _update_last_updated(main_row, base_row["date_entered"])
+        _update_last_updated(main_row, base_row["invoice_date"])
 
     # -------------------------------------------------
     # Billings
@@ -270,7 +267,7 @@ def get_main_page_rows(
         "record_key",
         "invoiced_qty",
         "total_usd_value",
-        "date_entered",
+        "invoice_date",
     ):
         group = lineage_groups.get(
             row["record_key"]
@@ -291,7 +288,7 @@ def get_main_page_rows(
 
         _update_last_updated(
             main_row,
-            row["date_entered"],
+            row["invoice_date"],
         )
 
     # -------------------------------------------------
@@ -300,9 +297,9 @@ def get_main_page_rows(
 
     for row in backlog_rows.values(
         "record_key",
-        "buy_qty_due",
+        "invoiced_unit",
         "sale_unit_price",
-        "date_entered",
+        "invoice_date",
     ):
         group = lineage_groups.get(
             row["record_key"]
@@ -313,7 +310,7 @@ def get_main_page_rows(
 
         main_row = rows[group]
 
-        units = row["buy_qty_due"] or 0
+        units = row["invoiced_unit"] or 0
         asp = row["sale_unit_price"] or 0
 
         main_row["backlog_units"] += units
@@ -324,7 +321,7 @@ def get_main_page_rows(
 
         _update_last_updated(
             main_row,
-            row["date_entered"],
+            row["invoice_date"],
         )
 
     # -------------------------------------------------
@@ -333,9 +330,9 @@ def get_main_page_rows(
 
     for row in forecast_rows.values(
         "record_key",
-        "buy_qty_due",
+        "invoiced_unit",
         "sale_unit_price",
-        "date_entered",
+        "invoice_date",
     ):
         group = lineage_groups.get(
             row["record_key"]
@@ -346,7 +343,7 @@ def get_main_page_rows(
 
         main_row = rows[group]
 
-        units = row["buy_qty_due"] or 0
+        units = row["invoiced_unit"] or 0
         asp = row["sale_unit_price"] or 0
 
         main_row["forecast_units"] += units
@@ -357,7 +354,7 @@ def get_main_page_rows(
 
         _update_last_updated(
             main_row,
-            row["date_entered"],
+            row["invoice_date"],
         )
 
     # -------------------------------------------------

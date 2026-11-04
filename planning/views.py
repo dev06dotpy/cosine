@@ -220,13 +220,13 @@ def forecast_data(request):
         set(
             option_backlog
             .exclude(
-                invoice_country__isnull=True
+                country__isnull=True
             )
             .exclude(
-                invoice_country=""
+                country=""
             )
             .values_list(
-                "invoice_country",
+                "country",
                 flat=True,
             )
             .distinct()
@@ -517,10 +517,10 @@ def main_summary(request):
 
     backlog_countries = (
         option_backlog
-        .exclude(invoice_country__isnull=True)
-        .exclude(invoice_country="")
+        .exclude(country__isnull=True)
+        .exclude(country="")
         .values_list(   
-            "invoice_country",
+            "country",
             flat=True,
         )
         .distinct()

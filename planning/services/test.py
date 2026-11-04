@@ -2,10 +2,10 @@ from datetime import date
 
 from django.db.models import Subquery, Sum
 
-from planning.models import Billings
+from planning.models import Backlog, BillingsOriginal
 from planning.services.classification import split_by_status
 
-backlog = Billings.objects.filter(
+backlog = Backlog.objects.filter(
     planned_delivery_date__gte=date(2024, 4, 1),
     planned_delivery_date__lt=date(2026, 4, 1),
 )
@@ -14,7 +14,7 @@ record_keys = backlog.values(
     "record_key"
 )
 
-billings = Billings.objects.filter(
+billings = BillingsOriginal.objects.filter(
     record_key__in=Subquery(record_keys)
 )
 
