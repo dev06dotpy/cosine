@@ -1,6 +1,6 @@
-"""Build filtered Backlog and Billings querysets for planning views.
+"""Build filtered Billings querysets for planning views.
 
-Backlog is the lineage source for filters that Billings cannot answer directly.
+Billings is the lineage source for filters that Billings cannot answer directly.
 Customer ID intentionally searches both IFS Customer and End Customer IDs.
 Region and Business Opportunity are resolved through trimmed order numbers.
 """
@@ -10,7 +10,7 @@ from datetime import date
 from django.db.models import Count, Q, Subquery
 from django.db.models.functions import Trim
 
-from ..models import Backlog, BillingsOriginal, BusinessOpportunity
+from ..models import Billings, BusinessOpportunity
 
 
 FY21_START = date(2021, 4, 1)
@@ -25,12 +25,12 @@ ALLOWED_CONTRACTS = [
 def get_base_querysets():
     """Return the app's contract- and history-bounded source querysets."""
 
-    backlog = Backlog.objects.filter(
+    backlog = Billings.objects.filter(
         contract__in=ALLOWED_CONTRACTS,
         planned_delivery_date__gte=FY21_START,
     )
 
-    billings = BillingsOriginal.objects.filter(
+    billings = Billings.objects.filter(
         contract__in=ALLOWED_CONTRACTS,
         invoice_date__gte=FY21_START,
     )
@@ -39,13 +39,13 @@ def get_base_querysets():
 
 
 def get_backlog_queryset():
-    return Backlog.objects.filter(
+    return Billings.objects.filter(
         planned_delivery_date__gte=FY21_START
     )
 
 
 def get_billings_queryset():
-    return BillingsOriginal.objects.filter(
+    return Billings.objects.filter(
         invoice_date__gte=FY21_START
     )
 
@@ -242,9 +242,9 @@ def search_records(
     region=None,
     business_opportunity=None,
 ):
-    """Return Backlog and Billings querysets matching planning filters.
+    """Return Billings querysets matching planning filters.
 
-    Backlog-side filters are composed first. Filters derived from Backlog
+    Billings-side filters are composed first. Filters derived from Backlog
     identity (Country, Region, or Business Opportunity) then restrict Billings
     once by the remaining ``record_key`` lineage. That restriction intentionally
     precedes fiscal-year filtering so Billings retains its independent invoice-
@@ -305,7 +305,7 @@ def search_records(
         )
         restrict_billings_to_backlog = True
 
-    # Apply Backlog lineage once after all lineage-based filters.
+    # Apply Billings lineage once after all lineage-based filters.
     # This remains before fiscal-year filtering to preserve the
     # existing independent Billings invoice-year behavior.
     if restrict_billings_to_backlog:

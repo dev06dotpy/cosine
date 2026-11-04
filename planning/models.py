@@ -10,14 +10,24 @@ from django.db import models
 
 class Billings(models.Model):
     objkey = models.CharField(db_column='OBJKEY', max_length=50, primary_key=True)  # Field name made lowercase.
+    record_key = models.CharField(db_column='RECORD_KEY', max_length=50, blank=True, null=True)  # Field name made lowercase.
+    contract = models.CharField(db_column='Contract', max_length=20, blank=True, null=True)  # Field name made lowercase.
     company = models.CharField(db_column='Company', max_length=20)  # Field name made lowercase.
     product_id = models.CharField(db_column='Product_ID', max_length=2000, blank=True, null=True)  # Field name made lowercase.
+    catalog_no = models.CharField(db_column='Catalog_No', max_length=2000, blank=True, null=True)  # Field name made lowercase.
     customer_id = models.CharField(db_column='Customer_ID', max_length=20)  # Field name made lowercase.
+    customer_no = models.CharField(db_column='Customer_No', max_length=20, blank=True, null=True)  # Field name made lowercase.
     customer_name = models.CharField(db_column='Customer_Name', max_length=4000, blank=True, null=True)  # Field name made lowercase.
     end_customer_id = models.CharField(max_length=4000, blank=True, null=True)
     end_customer_name = models.CharField(max_length=4000, blank=True, null=True)
+    end_customer = models.CharField(db_column='End_Customer', max_length=4000, blank=True, null=True)  # Field name made lowercase.
+    cf_end_customer = models.CharField(db_column='CF_End_Customer', max_length=4000, blank=True, null=True)  # Field name made lowercase.
     country = models.CharField(db_column='Country', max_length=4000, blank=True, null=True)  # Field name made lowercase.
+    invoice_country = models.CharField(db_column='Invoice_Country', max_length=4000, blank=True, null=True)  # Field name made lowercase.
+    delivery_country_code = models.CharField(db_column='Delivery_Country_Code', max_length=4000, blank=True, null=True)  # Field name made lowercase.
     region = models.CharField(db_column='Region', max_length=4000, blank=True, null=True)  # Field name made lowercase.
+    order_no = models.CharField(db_column='Order_No', max_length=4000, blank=True, null=True)  # Field name made lowercase.
+    planned_delivery_date = models.DateTimeField(db_column='Planned_Delivery_Date', blank=True, null=True)  # Field name made lowercase.
     invoiced_unit = models.FloatField(db_column='Invoiced_Unit', blank=True, null=True)  # Field name made lowercase.
     unit_price = models.FloatField(db_column='Unit_Price', blank=True, null=True)  # Field name made lowercase.
     invoiced = models.FloatField(db_column='Invoiced')  # Field name made lowercase.
