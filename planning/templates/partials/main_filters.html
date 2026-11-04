@@ -1,0 +1,74 @@
+<!--
+  Shared planning filters. Customer ID intentionally searches both the IFS
+  Customer and End Customer identifiers; exact End Customer row identity is
+  carried separately in Forecast URLs and is not another user-facing filter.
+-->
+<section class="filter-bar" aria-label="Planning filters">
+    <div class="filter-grid">
+        <label class="filter-field">
+            <span class="filter-field__label">Product ID</span>
+            <span class="search-control">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <input id="productIdFilter" type="search" placeholder="Search product">
+            </span>
+        </label>
+
+        <label class="filter-field">
+            <span class="filter-field__label">Customer ID</span>
+            <span class="search-control">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <input id="customerIdFilter" type="search" placeholder="Customer / end customer ID">
+            </span>
+        </label>
+
+        <label class="filter-field filter-field--wide">
+            <span class="filter-field__label">Customer Name</span>
+            <span class="search-control">
+                <svg viewBox="0 0 24 24" width="16" height="16" aria-hidden="true">
+                    <circle cx="11" cy="11" r="6.5" fill="none" stroke="currentColor" stroke-width="1.8"/>
+                    <path d="m16 16 4 4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                </svg>
+                <input id="customerNameFilter" type="search" placeholder="Customer / end customer name">
+            </span>
+        </label>
+
+        <label class="filter-field">
+            <span class="filter-field__label">Fiscal Year</span>
+            <select id="fiscalYearFilter">
+                <option value="2026">FY26</option>
+                <option value="2025" selected>FY25</option>
+                <option value="2024">FY24</option>
+                <option value="2023">FY23</option>
+                <option value="2022">FY22</option>
+                <option value="2021">FY21</option>
+            </select>
+        </label>
+
+        <label class="filter-field">
+            <span class="filter-field__label">Country</span>
+            <select id="countryFilter">
+                <option value="">All countries</option>
+            </select>
+        </label>
+
+        <label class="filter-field">
+            <span class="filter-field__label">Region</span>
+            <select id="regionFilter">
+                <option value="">All regions</option>
+            </select>
+        </label>
+
+        <label class="filter-field">
+            <span class="filter-field__label">Business Opportunity</span>
+            <select id="opportunityFilter">
+                <option value="">All opportunities</option>
+            </select>
+        </label>
+    </div>
+</section>

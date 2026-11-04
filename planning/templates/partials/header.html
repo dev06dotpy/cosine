@@ -1,0 +1,154 @@
+<header class="app-header">
+
+    <div class="app-header__brand">
+        <span
+            class="app-header__mark"
+            aria-hidden="true"
+        >
+            <svg
+                viewBox="0 0 24 24"
+                width="22"
+                height="22"
+            >
+                <path
+                    d="M4 18V9m6 9V5m6 13v-7m4 7H2"
+                    fill="none"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                />
+            </svg>
+        </span>
+
+        <div>
+            <div class="app-header__title">
+                Forecast Planning
+            </div>
+        </div>
+    </div>
+
+
+    <nav
+        class="page-nav"
+        aria-label="Primary"
+    >
+        <a
+            class="
+                page-nav__link
+                {% if request.path == '/' %}
+                    page-nav__link--active
+                {% endif %}
+            "
+            href="/"
+        >
+            Main Page
+        </a>
+
+        <!--
+          The generic Forecast href remains the no-selection fallback. On the
+          Main Page, main-page.js intercepts this link only for an active detail
+          row and reuses the Edit Forecast navigation path for that row.
+        -->
+        <a
+            id="forecastNavLink"
+            class="
+                page-nav__link
+                {% if request.path == '/forecast/' %}
+                    page-nav__link--active
+                {% endif %}
+            "
+            href="/forecast/"
+        >
+            Forecast
+        </a>
+    </nav>
+
+
+    <div class="app-header__actions">
+
+        <button
+            id="themeToggle"
+            class="theme-toggle"
+            type="button"
+            aria-label="Switch theme"
+            title="Switch theme"
+        >
+            <span id="themeToggleIcon">
+                ☾
+            </span>
+        </button>
+
+
+        <button
+            id="resetFilters"
+            class="button button--secondary"
+            type="button"
+        >
+            Reset Filters
+        </button>
+
+
+        {% if request.path == '/forecast/' %}
+
+            <button
+                id="saveForecastButton"
+                class="button button--primary"
+                type="button"
+                disabled
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M5 4h12l2 2v14H5V4Z"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                    />
+                    <path
+                        d="M8 4v6h8V4M8 20v-6h8v6"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+
+                Save Forecast
+            </button>
+
+        {% else %}
+
+            <button
+                id="exportButton"
+                class="button button--secondary"
+                type="button"
+            >
+                <svg
+                    viewBox="0 0 24 24"
+                    width="16"
+                    height="16"
+                    aria-hidden="true"
+                >
+                    <path
+                        d="M12 3v12m0 0 4-4m-4 4-4-4M5 17v3h14v-3"
+                        fill="none"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                    />
+                </svg>
+
+                Export
+            </button>
+
+        {% endif %}
+
+    </div>
+
+</header>

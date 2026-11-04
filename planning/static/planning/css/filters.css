@@ -1,0 +1,82 @@
+.filter-bar {
+    padding: 16px;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+}
+
+.filter-bar__topline {
+    margin-bottom: 16px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.filter-bar__actions {
+    display: flex;
+    gap: 8px;
+}
+
+.filter-grid {
+    display: grid;
+    grid-template-columns:
+        minmax(160px, 0.9fr)
+        minmax(190px, 1fr)
+        minmax(220px, 1.3fr)
+        minmax(110px, 0.65fr)
+        minmax(150px, 0.8fr)
+        minmax(140px, 0.75fr)
+        minmax(170px, 0.9fr);
+    gap: 12px;
+    align-items: end;
+}
+
+.filter-field {
+    display: grid;
+    gap: 6px;
+}
+
+.filter-field__label {
+    color: #44536a;
+    font-size: 11px;
+    font-weight: 750;
+}
+
+.filter-field input,
+.filter-field select {
+    width: 100%;
+    height: 40px;
+    padding: 0 11px;
+    color: var(--text);
+    background: #fff;
+    border: 1px solid var(--border-strong);
+    border-radius: 9px;
+    outline: none;
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition);
+}
+
+.filter-field input:focus,
+.filter-field select:focus {
+    border-color: #74a9dc;
+    box-shadow: 0 0 0 3px rgba(20, 119, 212, 0.10);
+}
+
+.search-control {
+    position: relative;
+}
+
+.search-control svg {
+    position: absolute;
+    left: 11px;
+    top: 12px;
+    color: #94a3b8;
+    pointer-events: none;
+}
+
+.search-control input {
+    padding-left: 35px;
+}

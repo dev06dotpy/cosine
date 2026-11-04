@@ -1,0 +1,266 @@
+/* --------------------------------------------------------------------------
+   Product information panel
+   Shared visual component: Main Page reveals it for an active row, while the
+   Forecast workspace overrides only visibility and placement.
+   -------------------------------------------------------------------------- */
+.detail-panel {
+    display: none;
+    min-height: 510px;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow);
+    overflow: hidden;
+    opacity: 0;
+    transform: translateX(18px);
+}
+
+.workspace.has-selection .detail-panel {
+    display: block;
+    animation: detail-panel-in 240ms ease forwards;
+}
+
+@keyframes detail-panel-in {
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.detail-panel__empty {
+    min-height: 510px;
+    padding: 24px;
+    display: grid;
+    place-items: center;
+    color: var(--text-muted);
+    text-align: center;
+}
+
+.detail-panel__header {
+    padding: 18px;
+    color: #fff;
+    background:
+        linear-gradient(135deg, #102f56 0%, #1d548a 100%);
+}
+
+.detail-panel__status {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 10px;
+    font-weight: 750;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    opacity: 0.85;
+}
+
+.detail-panel__close {
+    width: 30px;
+    height: 30px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    color: #fff;
+    background: rgba(255, 255, 255, 0.10);
+    border: 1px solid rgba(255, 255, 255, 0.18);
+    border-radius: 8px;
+}
+
+.detail-panel__product {
+    margin-top: 14px;
+    font-size: 24px;
+    font-weight: 820;
+    letter-spacing: -0.03em;
+}
+
+.detail-panel__customer {
+    margin-top: 5px;
+    font-size: 12px;
+    opacity: 0.9;
+}
+
+.detail-panel__body {
+    padding: 16px;
+}
+
+.detail-section {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.detail-section:first-child {
+    padding-top: 0;
+}
+
+.detail-section:last-child {
+    border-bottom: 0;
+}
+
+.detail-section__title {
+    margin: 0 0 10px;
+    color: #5f6d80;
+    font-size: 10px;
+    font-weight: 820;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+}
+
+.detail-list {
+    display: grid;
+    gap: 8px;
+}
+
+.detail-list__row {
+    display: grid;
+    grid-template-columns: 118px minmax(0, 1fr);
+    gap: 10px;
+    align-items: start;
+}
+
+.detail-list__label {
+    color: var(--text-muted);
+    font-size: 11px;
+}
+
+.detail-list__value {
+    color: var(--text);
+    font-size: 11px;
+    font-weight: 650;
+    text-align: right;
+    overflow-wrap: anywhere;
+}
+
+.detail-metrics {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 8px;
+}
+
+.detail-metric {
+    padding: 10px;
+    background: var(--surface-soft);
+    border: 1px solid var(--border);
+    border-radius: 9px;
+}
+
+.detail-metric__label {
+    color: var(--text-muted);
+    font-size: 9px;
+    font-weight: 780;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+}
+
+.detail-metric__value {
+    margin-top: 5px;
+    color: var(--text);
+    font-size: 14px;
+    font-weight: 780;
+}
+
+.detail-panel__footer {
+    padding: 0 16px 16px;
+}
+
+.detail-panel__footer .button {
+    width: 100%;
+}
+
+.detail-kpis {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 9px;
+}
+
+.detail-kpi {
+    min-height: 92px;
+    padding: 12px;
+    color: #fff;
+    border-radius: 11px;
+    position: relative;
+    overflow: hidden;
+}
+
+.detail-kpi::after {
+    content: "";
+    width: 80px;
+    height: 80px;
+
+    position: absolute;
+    right: -28px;
+    top: -32px;
+
+    border-radius: 50%;
+
+    background:
+        rgba(255, 255, 255, 0.10);
+}
+
+.detail-kpi--plan {
+    background:
+        linear-gradient(
+            135deg,
+            #194e86,
+            #1c6bb3
+        );
+}
+
+.detail-kpi--billings {
+    background:
+        linear-gradient(
+            135deg,
+            #147453,
+            #1b9b70
+        );
+}
+
+.detail-kpi--backlog {
+    background:
+        linear-gradient(
+            135deg,
+            #d58b1d,
+            #efb444
+        );
+}
+
+.detail-kpi--forecast {
+    background:
+        linear-gradient(
+            135deg,
+            #6b4bb5,
+            #8b67d3
+        );
+}
+
+.detail-kpi__title {
+    margin-bottom: 12px;
+
+    font-size: 9px;
+    font-weight: 800;
+    letter-spacing: 0.07em;
+    text-transform: uppercase;
+
+    opacity: 0.9;
+}
+
+.detail-kpi__values {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+
+    position: relative;
+    z-index: 1;
+}
+
+.detail-kpi__value {
+    font-size: 13px;
+    font-weight: 800;
+    font-variant-numeric: tabular-nums;
+}
+
+.detail-kpi__label {
+    margin-top: 2px;
+    font-size: 8px;
+    opacity: 0.78;
+}

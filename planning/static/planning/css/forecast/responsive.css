@@ -1,0 +1,60 @@
+@media (max-width: 1180px) {
+
+    .forecast-workspace {
+        grid-template-columns:
+            320px
+            minmax(0, 1fr);
+    }
+
+
+    .forecast-workspace
+    .forecast-detail-panel {
+        grid-column: 1;
+    }
+
+
+    .forecast-workspace
+    .forecast-monthly-card {
+        grid-column: 2;
+    }
+
+}
+
+
+@media (max-width: 900px) {
+
+    .forecast-workspace {
+        grid-template-columns: 1fr;
+    }
+
+
+    .forecast-workspace
+    .forecast-detail-panel {
+        grid-column: 1;
+    }
+
+
+    .forecast-workspace
+    .forecast-monthly-card {
+        grid-column: 1;
+    }
+
+}
+
+
+@media (max-width: 620px) {
+
+    .forecast-monthly-header {
+        align-items: flex-start;
+
+        flex-direction: column;
+
+        gap: 6px;
+    }
+
+
+    .forecast-monthly-table {
+        min-width: 700px;
+    }
+
+}

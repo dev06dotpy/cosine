@@ -1,0 +1,62 @@
+/* --------------------------------------------------------------------------
+   Manual Forecast inputs
+   These controls are rendered only for backend-approved editable months;
+   dirty and invalid classes communicate client-side save state.
+   -------------------------------------------------------------------------- */
+.forecast-input {
+    width: 100%;
+    height: 34px;
+
+    padding: 0 9px;
+
+    color: var(--text);
+    background: var(--surface);
+
+    border: 1px solid var(--border-strong);
+    border-radius: 8px;
+
+    outline: none;
+
+    text-align: right;
+
+    font-variant-numeric:
+        tabular-nums;
+
+    transition:
+        border-color var(--transition),
+        box-shadow var(--transition),
+        background var(--transition);
+}
+
+
+.forecast-input:focus {
+    border-color: var(--blue);
+
+    box-shadow:
+        0 0 0 3px
+        rgba(
+            20,
+            119,
+            212,
+            0.10
+        );
+}
+
+
+.forecast-input.is-dirty {
+    border-color: var(--amber);
+
+    background:
+        rgba(
+            228,
+            162,
+            50,
+            0.08
+        );
+}
+
+
+.forecast-input::-webkit-inner-spin-button,
+.forecast-input::-webkit-outer-spin-button {
+    margin: 0;
+}

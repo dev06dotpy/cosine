@@ -1,0 +1,228 @@
+/* --------------------------------------------------------------------------
+   Classified monthly position
+   Status classes style backend decisions only; classification remains outside
+   CSS and JavaScript in the fiscal-quarter services.
+   -------------------------------------------------------------------------- */
+.forecast-monthly-table-wrap {
+    width: 100%;
+
+    overflow-x: auto;
+}
+
+
+.forecast-monthly-table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    table-layout: fixed;
+
+    font-size: 12px;
+}
+
+
+.forecast-monthly-table th,
+.forecast-monthly-table td {
+    height: 48px;
+
+    padding: 8px 14px;
+
+    border-bottom: 1px solid var(--border);
+
+    vertical-align: middle;
+}
+
+
+.forecast-monthly-table thead th {
+    height: 42px;
+
+    color: var(--text-muted);
+    background: var(--surface-soft);
+
+    font-size: 10px;
+    font-weight: 800;
+
+    letter-spacing: 0.03em;
+
+    text-align: left;
+
+    white-space: nowrap;
+}
+
+
+.forecast-monthly-table
+thead th.numeric {
+    text-align: right;
+}
+
+
+.forecast-monthly-table th:nth-child(1) {
+    width: 15%;
+}
+
+
+.forecast-monthly-table th:nth-child(2) {
+    width: 25%;
+}
+
+
+.forecast-monthly-table th:nth-child(3),
+.forecast-monthly-table th:nth-child(4),
+.forecast-monthly-table th:nth-child(5) {
+    width: 20%;
+}
+
+
+.forecast-monthly-table tbody tr {
+    transition:
+        background var(--transition);
+}
+
+
+.forecast-monthly-table tbody tr:last-child td {
+    border-bottom: 0;
+}
+
+
+.forecast-month {
+    color: var(--text);
+
+    font-weight: 750;
+
+    white-space: nowrap;
+}
+
+
+.forecast-value {
+    color: var(--text);
+
+    font-variant-numeric:
+        tabular-nums;
+}
+
+
+.forecast-status {
+    display: inline-flex;
+    align-items: center;
+
+    min-height: 26px;
+
+    padding: 0 9px;
+
+    border-radius: 999px;
+
+    font-size: 10px;
+    font-weight: 750;
+
+    white-space: nowrap;
+}
+
+
+.forecast-status--billings {
+    color: var(--text-muted);
+
+    background: var(--surface-soft);
+
+    border: 1px solid var(--border);
+}
+
+
+.forecast-status--backlog {
+    color: #95640b;
+
+    background:
+        rgba(
+            228,
+            162,
+            50,
+            0.14
+        );
+
+    border:
+        1px solid
+        rgba(
+            228,
+            162,
+            50,
+            0.28
+        );
+}
+
+
+.forecast-status--forecast {
+    color: #6848aa;
+
+    background:
+        rgba(
+            123,
+            91,
+            199,
+            0.13
+        );
+
+    border:
+        1px solid
+        rgba(
+            123,
+            91,
+            199,
+            0.26
+        );
+}
+
+
+.forecast-row--backlog {
+    background:
+        rgba(
+            228,
+            162,
+            50,
+            0.035
+        );
+}
+
+
+.forecast-row--forecast {
+    background:
+        rgba(
+            123,
+            91,
+            199,
+            0.035
+        );
+}
+
+
+.forecast-monthly-state {
+    height: 180px !important;
+
+    color: var(--text-muted);
+
+    text-align: center;
+}
+
+
+.forecast-monthly-total th,
+.forecast-monthly-total td {
+    height: 52px;
+
+    color: var(--text);
+
+    background: var(--surface-soft);
+
+    border-top: 1px solid var(--border);
+    border-bottom: 0;
+
+    font-weight: 800;
+}
+
+
+.forecast-monthly-total th {
+    text-align: left;
+
+    text-transform: uppercase;
+
+    font-size: 10px;
+
+    letter-spacing: 0.05em;
+}

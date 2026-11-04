@@ -1,0 +1,57 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script>
+        (() => {
+            const saved =
+                localStorage.getItem("forecast-theme");
+
+            if (saved) {
+                document.documentElement.dataset.theme =
+                    saved;
+                return;
+            }
+
+            if (
+                window.matchMedia(
+                    "(prefers-color-scheme: dark)"
+                ).matches
+            ) {
+                document.documentElement.dataset.theme =
+                    "dark";
+            }
+        })();
+    </script>
+    <title>{% block title %}Forecast Planning{% endblock %}</title>
+
+    <link rel="stylesheet" href="{% static 'planning/css/base.css' %}">
+    <link rel="stylesheet" href="{% static 'planning/css/header.css' %}">
+    <link rel="stylesheet" href="{% static 'planning/css/filters.css' %}">
+    <link rel="stylesheet" href="{% static 'planning/css/kpis.css' %}">
+    <link rel="stylesheet" href="{% static 'planning/css/main-table.css' %}">
+    <link rel="stylesheet" href="{% static 'planning/css/detail-panel.css' %}">
+    <link rel="stylesheet" href="{% static 'planning/css/responsive.css' %}">
+    <link rel="stylesheet" href="{% static 'planning/css/theme.css' %}">
+    {% block extra_css %}{% endblock %}
+</head>
+<body>
+    <div class="app-shell">
+
+        {% include "partials/header.html" %}
+
+        <main class="page-content">
+            {% block content %}
+            {% endblock %}
+        </main>
+
+    </div>
+
+    <script src="{% static 'planning/js/planning-ui.js' %}"></script>
+    <script src="{% static 'planning/js/theme.js' %}"></script>
+
+    {% block scripts %}
+    {% endblock %}
+</html>
