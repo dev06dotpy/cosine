@@ -26,12 +26,12 @@ def get_base_querysets():
     """Return the app's contract- and history-bounded source querysets."""
 
     backlog = Backlog.objects.filter(
-        contract__in=ALLOWED_CONTRACTS,
+        company__in=ALLOWED_CONTRACTS,
         planned_delivery_date__gte=FY21_START,
     )
 
     billings = BillingsOriginal.objects.filter(
-        contract__in=ALLOWED_CONTRACTS,
+        company__in=ALLOWED_CONTRACTS,
         invoice_date__gte=FY21_START,
     )
 
@@ -58,11 +58,11 @@ def filter_by_product_id(backlog, billings, product_id):
     product_id = product_id.strip()
 
     backlog = backlog.filter(
-        catalog_no__icontains=product_id
+        product_id__icontains=product_id
     )
 
     billings = billings.filter(
-        catalog_no__icontains=product_id
+        product_id__icontains=product_id
     )
 
     return backlog, billings
@@ -82,15 +82,15 @@ def filter_by_customer_id(backlog, billings, customer_id):
     customer_id = customer_id.strip()
 
     backlog = backlog.filter(
-        Q(customer_no__icontains=customer_id)
+        Q(customer_id__icontains=customer_id)
         |
-        Q(cf_end_customer__icontains=customer_id)
+        Q(end_customer_id__icontains=customer_id) | Q(end_customer_name__icontains=customer_id) | Q(end_customer_name__icontains=customer_id)
     )
 
     billings = billings.filter(
         Q(customer_id__icontains=customer_id)
         |
-        Q(end_customer__icontains=customer_id)
+        Q(end_customer_id__icontains=customer_id) | Q(end_customer_name__icontains=customer_id)
     )
 
     return backlog, billings
@@ -106,13 +106,13 @@ def filter_by_customer_name(backlog, billings, customer_name):
     backlog = backlog.filter(
         Q(customer_name__icontains=customer_name)
         |
-        Q(cf_end_customer__icontains=customer_name)
+        Q(end_customer_id__icontains=customer_name) | Q(end_customer_name__icontains=customer_name)
     )
 
     billings = billings.filter(
         Q(customer_name__icontains=customer_name)
         |
-        Q(end_customer__icontains=customer_name)
+        Q(end_customer_id__icontains=customer_name) | Q(end_customer_name__icontains=customer_name)
     )
 
     return backlog, billings
@@ -126,11 +126,11 @@ def filter_by_country(backlog, billings, country):
     country = country.strip()
 
     backlog = backlog.filter(
-        invoice_country__iexact=country
+        country__iexact=country
     )
 
     billings = billings.filter(
-        delivery_country_code__iexact=country
+        country__iexact=country
     )
 
     return backlog, billings
@@ -242,7 +242,7 @@ def search_records(
     region=None,
     business_opportunity=None,
 ):
-    """Return Backlog and Billings querysets matching planning filters.
+    """Return Backlog and Billings matching planning filters.
 
     Backlog-side filters are composed first. Filters derived from Backlog
     identity (Country, Region, or Business Opportunity) then restrict Billings
@@ -256,11 +256,11 @@ def search_records(
     # Product
     if product_id:
         backlog = backlog.filter(
-            catalog_no__icontains=product_id
+            product_id__icontains=product_id
         )
 
         billings = billings.filter(
-            catalog_no__icontains=product_id
+            product_id__icontains=product_id
         )
 
     # Customer ID
@@ -275,12 +275,12 @@ def search_records(
     if customer_name:
         backlog = backlog.filter(
             Q(customer_name__icontains=customer_name)
-            | Q(cf_end_customer__icontains=customer_name)
+            | Q(end_customer_id__icontains=customer_name) | Q(end_customer_name__icontains=customer_name)
         )
 
         billings = billings.filter(
             Q(customer_name__icontains=customer_name)
-            | Q(end_customer__icontains=customer_name)
+            | Q(end_customer_id__icontains=customer_name) | Q(end_customer_name__icontains=customer_name)
         )
 
     restrict_billings_to_backlog = False
@@ -288,7 +288,7 @@ def search_records(
     # Country
     if country:
         backlog = backlog.filter(
-            invoice_country=country
+            country=country
         )
         restrict_billings_to_backlog = True
 
